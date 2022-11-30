@@ -8,15 +8,6 @@ WebBrowser.maybeCompleteAuthSession();
 
 const AuthContext = createContext({});
 
-// const config = {
-//   expoClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-//   iosClientId: '953808248579-k6gdf4u0ke9gckppofierbrsokt7r4es.apps.googleusercontent.com',
-//   androidClientId: '953808248579-fj2sium8q0fqhbvjhoufu7it7b3s9at2.apps.googleusercontent.com',
-//   webClientId: '953808248579-ir1gnrref3nudh1qtr550bjcb6cc6e2d.apps.googleusercontent.com',
-//   // scopes:["profile","email"],
-//   // permissions:["public_profile","email","gender","location"]
-// }
-
 export const AuthProvider = ({ children }) => {
 
   const [request, response, promptAsync] = Google.useAuthRequest({

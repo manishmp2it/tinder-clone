@@ -16,18 +16,16 @@ const ModalScreen = () => {
 
     const incompleteform= !image || !job || !age;
 
-
-
-    useLayoutEffect(()=>{
-        navigation.setOptions({
-            headerShown:true,
-            headerTitle:"Update your Profile",
-            headerStyle:{
-                backgroundColor:"#FF5864"
-            },
-            headerTitleStyle:{color:"white"}
-        });
-    },[])
+    // useLayoutEffect(()=>{
+    //     navigation.setOptions({
+    //         headerShown:true,
+    //         headerTitle:"Update your Profile",
+    //         headerStyle:{
+    //             backgroundColor:"#FF5864"
+    //         },
+    //         headerTitleStyle:{color:"white"}
+    //     });
+    // },[])
 
     const updateProfile=()=>{
         setDoc(doc(db,'users',user.uid),{
@@ -75,6 +73,8 @@ const ModalScreen = () => {
                 onChangeText={text => setAge(text)}
                 style={tw`text-center text-xl pb-2`}
                 placeholder="Enter your Age"
+                keyboardType='numeric'
+                maxLength={2}
             />
 
             <TouchableOpacity disabled={incompleteform} style={[tw`w-64 p-3 rounded-xl absolute bottom-10 bg-red-400`,incompleteform ? tw`bg-gray-400`:tw``]} onPress={updateProfile}>

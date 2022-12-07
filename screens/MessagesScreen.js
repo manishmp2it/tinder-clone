@@ -73,8 +73,6 @@ const MessagesScreen = () => {
         </View>
 
       </KeyboardAvoidingView>
-
-
     </SafeAreaView>
   )
 }

@@ -3,10 +3,13 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from 'firebase/auth';
+import Constants from 'expo-constants';
 
 import { auth } from '../firebase';
 
 WebBrowser.maybeCompleteAuthSession();
+
+const useProxy = Constants.appOwnership === 'expo' && false;
 
 
 const AuthContext = createContext({});

@@ -9,7 +9,7 @@ const Header = ({title,callEnabled}) => {
     const navigation=useNavigation();
 
   return (
-    <View style={tw`p-2 flex-row items-center justify-between`}>
+    <View style={tw`p-2 py-5 flex-row items-center justify-between`}>
       <View style={tw`flex flex-row items-center`}>
             <TouchableOpacity onPress={()=>navigation.goBack()} style={tw`p-2`}>
             <Ionicons name="chevron-back-outline" size={34} color="#FF5864" />

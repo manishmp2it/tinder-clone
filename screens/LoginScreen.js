@@ -5,6 +5,7 @@ import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  
   const { signInwithGoogle, loading } = useAuth();
   const navigation = useNavigation();
 

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TextInput, Button, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, Button, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import useAuth from '../hooks/useAuth'
@@ -9,6 +9,7 @@ import SenderMessage from '../components/SenderMessage'
 import ReceiverMessage from '../components/ReceiverMessage'
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { Ionicons } from '@expo/vector-icons'
 
 const MessagesScreen = () => {
 
@@ -18,23 +19,26 @@ const MessagesScreen = () => {
   const [messages, setMessages] = useState([]);
   const { matchDetails } = params;
 
-  useEffect(()=>{
-      onSnapshot(query(collection(db,'matches',matchDetails.id,'messages'),orderBy('timestamp','desc')),snapshot=>setMessages(snapshot.docs.map(doc=>({
-        id:doc.id,
-        ...doc.data()
-      }))));
-  },[matchDetails,db])
+  useEffect(() => {
+    onSnapshot(query(collection(db, 'matches', matchDetails.id, 'messages'), orderBy('timestamp', 'desc')), snapshot => setMessages(snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))));
+  }, [matchDetails, db])
 
   const sendMessage = () => {
-      addDoc(collection(db,'matches',matchDetails.id,'messages'),{
-          timestamp:serverTimestamp(),
-          userId:user.uid,
-          displayName:user.displayName,
-          photoURL:matchDetails.users[user.uid].photoURL,
-          message:input,
-      });
 
-      setInput('');
+    if (input != "") {
+      addDoc(collection(db, 'matches', matchDetails.id, 'messages'), {
+        timestamp: serverTimestamp(),
+        userId: user.uid,
+        displayName: user.displayName,
+        photoURL: matchDetails.users[user.uid].photoURL,
+        message: input,
+      });
+    }
+
+    setInput('');
   }
 
   return (
@@ -69,7 +73,10 @@ const MessagesScreen = () => {
             onSubmitEditing={sendMessage}
             value={input}
           />
-          <Button onPress={sendMessage} color="#FF5864" title="Send" />
+          {/* <Button onPress={sendMessage} color="#FF5864" title="Send" /> */}
+          <TouchableOpacity>
+          <Ionicons name="send-sharp" size={28} color="#FF5864" onPress={sendMessage}/>
+          </TouchableOpacity>
         </View>
 
       </KeyboardAvoidingView>

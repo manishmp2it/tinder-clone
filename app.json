@@ -3,6 +3,8 @@
     "name": "tinder-clone-app",
     "slug": "tinder-clone-app",
     "version": "1.0.0",
+    "scheme": "host.exp.exponent",
+    "platforms": ["ios", "android", "web"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

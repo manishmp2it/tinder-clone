@@ -10,6 +10,7 @@ import { collection, doc, DocumentSnapshot, getDoc, getDocs, onSnapshot, query, 
 import { db } from '../firebase';
 import { async } from '@firebase/util';
 import generateId from '../lib/genereteId';
+// import chalk from 'chalk';
 
 
 const DUMMY_DATA = [
@@ -55,7 +56,9 @@ const HomeScreen = () => {
   const [profiles, setProfiles] = useState([])
   const swipeRef = useRef(null);
 
-  console.log(user)
+  const [myProfile, setMyProfile] = useState();
+
+  console.log(profiles)
 
   useLayoutEffect(() =>
     onSnapshot(doc(db, "users", user.uid), (snapshot) => {
@@ -90,11 +93,19 @@ const HomeScreen = () => {
         })
     }
 
+    const myProfile = async () => {
+      try {
+        const loggedInProfile = await (await getDoc(doc(db, 'users', user.uid))).data();
+        setMyProfile(loggedInProfile);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+
+    myProfile();
     fetchCards();
     return unsub;
   }, [])
-
-  console.log(profiles)
 
   const swipeLeft = (cardIndex) => {
     if (!profiles[cardIndex]) return;
@@ -108,36 +119,36 @@ const HomeScreen = () => {
     if (!profiles[cardIndex]) return;
 
     const userSwiped = profiles[cardIndex];
-    const loggedInProfile = await (await getDoc(doc(db,'users',user.uid))).data();
+    const loggedInProfile = await (await getDoc(doc(db, 'users', user.uid))).data();
 
     //check if user swiped on you...
 
-    getDoc(doc(db,"users",userSwiped.id,"swipes",user.uid)).then((documentSnapshot)=>{
-      if(documentSnapshot.exists()){
+    getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then((documentSnapshot) => {
+      if (documentSnapshot.exists()) {
 
-          console.log(`you matched with ${userSwiped.displayName}`);
+        console.log(`you matched with ${userSwiped.displayName}`);
 
-         setDoc(doc(db, 'users', user.uid, 'swipes', userSwiped.id), userSwiped)
+        setDoc(doc(db, 'users', user.uid, 'swipes', userSwiped.id), userSwiped)
 
-          //Create a Match
+        //Create a Match
 
-          setDoc(doc(db,'matches',generateId(user.uid,userSwiped.id)),{
-            users:{
-              [user.uid]:loggedInProfile,
-              [userSwiped.id]:userSwiped
-            },
-            userMatched:[user.uid,userSwiped.id],
-            timestamp:serverTimestamp()
-          });
+        setDoc(doc(db, 'matches', generateId(user.uid, userSwiped.id)), {
+          users: {
+            [user.uid]: loggedInProfile,
+            [userSwiped.id]: userSwiped
+          },
+          userMatched: [user.uid, userSwiped.id],
+          timestamp: serverTimestamp()
+        });
 
-          navigation.navigate('Match',{
-            loggedInProfile,
-            userSwiped,
-          })
+        navigation.navigate('Match', {
+          loggedInProfile,
+          userSwiped,
+        })
 
-      }else{
+      } else {
         console.log(`you swiped on ${userSwiped.displayName}`);
-       setDoc(doc(db, 'users', user.uid, 'swipes', userSwiped.id), userSwiped)
+        setDoc(doc(db, 'users', user.uid, 'swipes', userSwiped.id), userSwiped)
       }
     })
 
@@ -149,7 +160,7 @@ const HomeScreen = () => {
 
       <View style={tw`flex-row items-center justify-between relative px-5`}>
         <TouchableOpacity onPress={logout} >
-          <Image style={tw`h-10 w-10 rounded-full`} source={{ uri: user.photoURL || "" }} />
+          <Image style={tw`h-10 w-10 rounded-full`} source={{ uri: myProfile && myProfile.photoURL || "hello" }} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
@@ -159,7 +170,6 @@ const HomeScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Ionicons name="chatbubbles-sharp" size={30} color="#FF5864" />
         </TouchableOpacity>
-
       </View>
 
       <View style={tw`flex-1 mt-0`}>
@@ -203,9 +213,9 @@ const HomeScreen = () => {
             <View key={card.id} style={tw`relative bg-white h-3/4 rounded-xl`}>
               <Image style={tw`absolute top-0 h-full w-full rounded-xl`} resizeMode="cover" source={{ uri: card.photoURL }} />
 
-              <View style={tw`absolute bottom-0 bg-white w-full flex-row justify-between items-between px-6 py-2 rounded-b-xl h-20`}>
+              <View style={tw`absolute bottom-0 bg-white w-full flex-row justify-between px-6 py-2 rounded-b-xl h-20`}>
                 <View>
-                  <Text style={tw`text-xl font-bold`}>{card.displayName}</Text>
+                  <Text style={tw`text-xl font-bold`}>{card.name}</Text>
                   <Text>{card.job}</Text>
                 </View>
                 <Text style={tw`text-2xl font-bold`}>{card.age}</Text>

@@ -29,7 +29,7 @@ const ChatRow = ({matchDetails}) => {
        <Image style={tw`rounded-full h-16 w-16 mr-4`} source={{uri:matchedUserInfo?.photoURL}} />
        <View>
         <Text style={tw`text-lg font-semibold`}>
-            {matchedUserInfo?.displayName}
+            {matchedUserInfo?.name}
         </Text>
         <Text>{lastMessage|| "Say Hi!"}</Text>
        </View>

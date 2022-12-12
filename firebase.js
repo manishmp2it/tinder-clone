@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import {getAuth} from "firebase/auth"
 import {getFirestore} from "firebase/firestore"
 import {getReactNativePersistence, initializeAuth} from "firebase/auth/react-native"
@@ -14,7 +14,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app = initializeApp(firebaseConfig);
+let app;
+
+const wala= getApps()
+
+if (wala.length=== 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp()
+}
 
 const auth1 = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage)

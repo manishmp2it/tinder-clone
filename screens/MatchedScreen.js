@@ -16,7 +16,7 @@ const MatchedScreen = () => {
       </View>
       
       <Text style={tw`text-white text-center mt-5`}>
-            You and {userSwiped.displayName} have liked each other.
+            You and {userSwiped.name} have liked each other.
       </Text>
 
       <View style={tw`flex-row justify-evenly mt-5`}>

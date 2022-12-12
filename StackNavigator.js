@@ -37,11 +37,12 @@ const StackNavigator = () => {
       ) : (
         <>
           <Stack.Group>
+            <Stack.Screen name="MobileRegister" component={MobileRegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Group>
-          <Stack.Group>
-            <Stack.Screen name="MobileRegister" component={MobileRegisterScreen} />
-          </Stack.Group>
+          {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
+           
+          </Stack.Group> */}
         </>
       )}
 

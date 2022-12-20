@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     iosClientId: '953808248579-k6gdf4u0ke9gckppofierbrsokt7r4es.apps.googleusercontent.com',
     androidClientId: '953808248579-fj2sium8q0fqhbvjhoufu7it7b3s9at2.apps.googleusercontent.com',
     webClientId: '953808248579-8eobvgg22tn7c409o0re6tc4dgm8hei3.apps.googleusercontent.com',
+    
   });
 
   const signInwithGoogle = async () => {

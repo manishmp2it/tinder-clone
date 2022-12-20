@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, TextInput, Platform, Alert, StyleSheet, KeyboardAvoidingView, } from 'react-native'
 import React, { useRef, useState } from 'react'
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+import { FirebaseRecaptchaBanner, FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import { PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
 import tw from "twrnc"
 import { app, auth } from '../firebase';
 import PhoneInput from "react-native-phone-number-input";
-import OtpInputs from 'react-native-otp-inputs';
+
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import Toast from 'react-native-toast-message';
 
@@ -17,6 +17,7 @@ const MobileRegisterScreen = () => {
     const [verificationId, setVerificationId] = useState(null);
     const [code, setCode] = useState('');
     const phoneInput = useRef(null);
+    const attemptInvisibleVerification = false;
 
     const CELL_COUNT = 6;
 
@@ -66,12 +67,13 @@ const MobileRegisterScreen = () => {
                 keyboardVerticalOffset={10} >
                 <>
                     <View style={tw`flex-1 justify-center items-center`}>
-                        {/* {
-                            firebaseConfig && <FirebaseRecaptchaVerifierModal
-                                ref={recaptchaVerifier}
-                                firebaseConfig={firebaseConfig}
-                            />
-                        } */}
+
+                        <FirebaseRecaptchaVerifierModal
+                            ref={recaptchaVerifier}
+                            firebaseConfig={firebaseConfig}
+                            attemptInvisibleVerification={true}           
+                        />
+
                         <Text style={tw`text-xl text-gray-500 p-2 font-bold text-3xl`}>Welcome </Text>
 
                         <Text style={tw`text-center text-red-400 p-4 text-xl font-bold`}>Enter Mobile No. </Text>
@@ -123,6 +125,7 @@ const MobileRegisterScreen = () => {
                     </View> : null}
                 </>
             </KeyboardAvoidingView>
+            {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
         </View>
     )
 }

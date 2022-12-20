@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:953808248579:android:4e77f83c56792f250bd336",
+        "mobilesdk_app_id": "1:953808248579:android:03ba5e2337850aa80bd336",
         "android_client_info": {
-          "package_name": "host.exp.exponent"
+          "package_name": "com.manish_bar.tinderclone"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "953808248579-6roo3j8v8hu5u2oqne2h5hkkl2orq0uj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manish_bar.tinderclone",
+            "certificate_hash": "4204e6a850aca639e55fad886b0bd245c385a3f9"
+          }
+        },
         {
           "client_id": "953808248579-ir1gnrref3nudh1qtr550bjcb6cc6e2d.apps.googleusercontent.com",
           "client_type": 3
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "953808248579-ir1gnrref3nudh1qtr550bjcb6cc6e2d.apps.googleusercontent.com",
+              "client_id": "953808248579-8eobvgg22tn7c409o0re6tc4dgm8hei3.apps.googleusercontent.com",
               "client_type": 3
             },
             {

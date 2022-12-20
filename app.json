@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "host.exp.exponent"
+      "package": "com.manish_bar.tinderclone"
     },
     "web": {
       "favicon": "./assets/favicon.png"
